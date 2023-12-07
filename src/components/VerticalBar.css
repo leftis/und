@@ -1,0 +1,83 @@
+/* VerticalBar.css */
+
+.vertical-bar {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  /* Stack bars vertically */
+  height: 500px;
+  /* Adjust the height based on your needs */
+  position: relative;
+  z-index: 2;
+  /* Set z-index for the vertical bar container */
+}
+
+.bar-slice {
+  flex-grow: 1;
+  background-color: rgba(74, 144, 226, 0.5);
+  /* Set alpha to 0.5 for 50% transparency */
+  position: relative;
+  transition: height 0.5s ease;
+  /* CSS transition for smooth animation */
+  border-bottom: 1px solid #fff;
+  /* Border to distinguish slices */
+  z-index: 1;
+  /* Set z-index for the bar slices */
+}
+
+.bar-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  /* Adjust the text color */
+  font-weight: bold;
+  z-index: 3;
+  /* Set z-index for the bar labels */
+}
+
+/* Center the button */
+.center-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  /* Adjust the margin based on your needs */
+}
+
+/* Style the button */
+.my-button {
+  padding: 10px 20px;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.my-button:hover {
+  background-color: #3669b3;
+  /* Darker shade on hover */
+}
+
+
+.vertical-bar-container {
+  position: relative;
+  height: 500px;
+  /* Adjust as needed */
+}
+
+.vertical-bar-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid #333;
+  /* Adjust the color as needed */
+}
