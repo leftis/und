@@ -1,7 +1,7 @@
 /* VerticalBar.css */
 
 .vertical-bar {
-  width: 300px;
+  width: 600px;
   display: flex;
   flex-direction: column;
   /* Stack bars vertically */
@@ -19,7 +19,7 @@
   position: relative;
   transition: height 0.5s ease;
   /* CSS transition for smooth animation */
-  border-bottom: 1px solid #fff;
+  border-bottom: 3px solid #fff;
   /* Border to distinguish slices */
   z-index: 1;
   /* Set z-index for the bar slices */

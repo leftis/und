@@ -4,28 +4,36 @@ import React, { useState, useEffect } from 'react';
 import './VerticalBar.css';
 
 const VerticalBar = ({ percentageA, percentageB, percentageC }) => {
-  const [heightA, setHeightA] = useState(percentageA);
-  const [heightB, setHeightB] = useState(percentageB);
-  const [heightC, setHeightC] = useState(percentageC);
+  const [controlHeight, setControlHeight] = useState(percentageA);
+  const [messageHeight, setMessageHeight] = useState(percentageB);
+  const [eHeight, seteHeight] = useState(percentageC);
 
   useEffect(() => {
     // Update slice heights when percentages change
-    setHeightA(percentageA);
-    setHeightB(percentageB);
-    setHeightC(percentageC);
+    setControlHeight(percentageA);
+    setMessageHeight(percentageB);
+    seteHeight(percentageC);
   }, [percentageA, percentageB, percentageC]);
 
   return (
     <div className="vertical-bar">
-      {/* Bars */}
-      <div className="bar-slice" style={{ height: `${heightA}%`, backgroundColor: 'red' }}>
-        <span className="bar-label">Control</span>
+      <div
+        className="bar-slice"
+        style={{ height: `${controlHeight}%`, backgroundColor: 'purple' }}>
+        <span className="bar-label">Control - {controlHeight}% </span>
       </div>
-      <div className="bar-slice" style={{ height: `${heightB}%`, backgroundColor: 'green'}}>
-        <span className="bar-label">_L_</span>
+
+      <div
+        className="bar-slice"
+        style={{ height: `${messageHeight}%`, backgroundColor: 'green'}}>
+        <span className="bar-label">Persado - {messageHeight}%</span>
       </div>
-      <div className="bar-slice" style={{ height: `${heightC}%`, backgroundColor: 'blue' }}>
-        <span className="bar-label">e_L_e</span>
+
+      <div
+        className="bar-slice"
+        style={{ height: `${eHeight}%`, backgroundColor: 'blue' }}
+      >
+        <span className="bar-label">Persado E - {eHeight}%</span>
       </div>
     </div>
   );

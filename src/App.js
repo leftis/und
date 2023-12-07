@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import VerticalBar from './components/VerticalBar.js';
 import WeightPopup from './components/WeightPopup.js';
+import Logs from './components/Logs.js';
+
 import './index.css';
 
 const App = () => {
@@ -10,6 +12,7 @@ const App = () => {
   const [percentageB, setPercentageB] = useState(25);
   const [percentageC, setPercentageC] = useState(25);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [logs, pushLogs] = useState([]);
 
   const handlePopupOpen = () => {
     setIsPopupOpen(true);
@@ -19,8 +22,15 @@ const App = () => {
     setIsPopupOpen(false);
   };
 
+  const handleLog = (log) => {
+    let newLogs = logs
+    newLogs.push(log)
+    pushLogs(newLogs)
+  }
+
   const handlePopupSubmit = (newPercentageB, newPercentageC, controlPercentage) => {
-    console.log(`---- Report ---- ${Date. now()}`)
+    handleLog(`---- Report ---- ${Date. now()}`);
+
     setPercentageControl(controlPercentage);
     setPercentageB(newPercentageB);
     setPercentageC(newPercentageC);
@@ -37,7 +47,7 @@ const App = () => {
 
       <div className="center-button">
         <button className="my-button" onClick={handlePopupOpen}>
-          Set Weights
+          Update weights
         </button>
       </div>
 
@@ -45,7 +55,11 @@ const App = () => {
         isOpen={isPopupOpen}
         onClose={handlePopupClose}
         onSubmit={handlePopupSubmit}
+        handleLog={handleLog}
       />
+
+      <Logs
+        logs={logs} />
     </div>
     </div>
   );

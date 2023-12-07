@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import './WeightPopup.css';
 
-const WeightPopup = ({ isOpen, onClose, onSubmit }) => {
+const WeightPopup = ({ isOpen, onClose, onSubmit, handleLog }) => {
   const [previousRanges, setPreviousRanges] = useState(null);
 
   const [weightB, setWeightB] = useState('50');
@@ -47,7 +47,8 @@ const WeightPopup = ({ isOpen, onClose, onSubmit }) => {
     const endE_L = slicesControl + slicesL + slicesE_L - 1;
 
     // Log the latest ranges
-    console.log(`Latest Ranges: Control (0-${endControl}), L (${slicesControl}-${endL}), e_L (${slicesControl + slicesL}-${endE_L})`);
+    // console.log(`Latest Ranges: Control (0-${endControl}), L (${slicesControl}-${endL}), e_L (${slicesControl + slicesL}-${endE_L})`);
+    handleLog(`Latest Ranges: Control (0-${endControl}), L (${slicesControl}-${endL}), e_L (${slicesControl + slicesL}-${endE_L})`)
 
     // If there are previous ranges, compare with the latest ranges
     if (previousRanges) {
@@ -77,11 +78,13 @@ const compareRanges = (previous, current) => {
     const currentRange = current[bar];
 
     if (prevRange[0] === currentRange[0] && prevRange[1] === currentRange[1]) {
-      console.log(`Nothing changed for ${bar}`);
+      handleLog(`Nothing changed for ${bar}`)
+      // console.log(`Nothing changed for ${bar}`);
     } else {
       const overlap = calculateOverlap(prevRange, currentRange);
       if (overlap > 0) {
-        console.log(`${bar} overlaps prev/next bar by ${overlap}`);
+        handleLog(`${overlap} are going to get switched to ${bar}`);
+        // console.log(`${overlap} are going to get switched to ${bar}`);
       }
     }
   });
@@ -95,6 +98,7 @@ const calculateOverlap = (prevRange, nextRange) => {
   const [neRaArStart, neRaArEnd] = nextRange;
   const nextArr = Array.range(neRaArStart, neRaArEnd);
 
+  handleLog({prev: previousArr, next: nextArr})
   console.log({
     prev: previousArr,
     next: nextArr
@@ -103,6 +107,8 @@ const calculateOverlap = (prevRange, nextRange) => {
   // the new array is small and starts on the same start index thus no weights have bee shifted here, those gone away are allocated on the next bar and the overlap will get registered there
   if (nextArr.length < previousArr.length && nextArr[0] === previousArr[0]) {
     return 0;
+  } else if (nextArr.length === previousArr.length && !(nextArr[0] === prevArr[0])) {
+    return nextArr[0]-prevArr[0];
   }
 
   return nextArr.length - previousArr.length;
@@ -111,7 +117,7 @@ const calculateOverlap = (prevRange, nextRange) => {
  return (
     <div className={`weight-popup ${isOpen ? 'visible' : 'hidden'}`}>
       <div className="popup-content">
-        <label htmlFor="weightB" className="block text-sm font-medium text-gray-700">Weight for B:</label>
+        <label htmlFor="weightB" className="block text-sm font-medium text-gray-700">Persado Weight:</label>
         <input
           type="number"
           step="0.01"
@@ -123,7 +129,7 @@ const calculateOverlap = (prevRange, nextRange) => {
           className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring focus:border-blue-300"
         />
 
-        <label htmlFor="weightC" className="block mt-2 text-sm font-medium text-gray-700">Weight for C:</label>
+        <label htmlFor="weightC" className="block mt-2 text-sm font-medium text-gray-700">E Weight:</label>
         <input
           type="number"
           step="0.01"
