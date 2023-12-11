@@ -39,28 +39,28 @@ const App = () => {
   return (
     <div className="flex items-center justify-center h-screen">
       <div>
-      <VerticalBar
-        percentageA={percentageControl}
-        percentageB={percentageB}
-        percentageC={percentageC}
-      />
+        <VerticalBar
+          percentageA={percentageControl}
+          percentageB={percentageB}
+          percentageC={percentageC}
+        />
 
-      <div className="center-button">
-        <button className="my-button" onClick={handlePopupOpen}>
-          Update weights
-        </button>
+        <div className="center-button">
+          <button className="my-button" onClick={handlePopupOpen}>
+            Update weights
+          </button>
+        </div>
+
+        <WeightPopup
+          isOpen={isPopupOpen}
+          onClose={handlePopupClose}
+          onSubmit={handlePopupSubmit}
+          handleLog={handleLog}
+        />
       </div>
-
-      <WeightPopup
-        isOpen={isPopupOpen}
-        onClose={handlePopupClose}
-        onSubmit={handlePopupSubmit}
-        handleLog={handleLog}
-      />
-
-      <Logs
-        logs={logs} />
-    </div>
+      <div className="scroll-smooth">
+        <Logs logs={logs} />
+      </div>
     </div>
   );
 };
